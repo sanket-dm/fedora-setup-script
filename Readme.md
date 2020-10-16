@@ -1,0 +1,3 @@
+Fedora Workstation setup script
+
+Will be updated soon...
