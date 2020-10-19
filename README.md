@@ -6,6 +6,8 @@ This script will add essential and required features to a freshly installed Fedo
 
 Many of the functionalities will be added, but please take a look and modifty the parameters according to your requirements.
 
+
+
 Things implemented/needed to be done:
 
 - [x] Enabling RPMfusion repos.
@@ -41,6 +43,8 @@ Check wake up status of all USB devices and delect the one which shows `enabled`
 ```
 grep . /sys/bus/usb/devices/*/power/wakeup
 ```
+
+
 
 Some additional post-install tweaks .
 These are not part of the script, but can be applied post the install.
