@@ -1,6 +1,6 @@
 **Fedora 32 Workstation Setup Script**
 
-Special thanks to Tobias's script.
+Special thanks to Tobias's script for some of the tweaks.
 
 This script will add essential and required features to a freshly installed Fedora 32 installation.
 
@@ -22,11 +22,75 @@ Things implemented/needed to be done:
 - [x] Disable `fedora-cisco-openh264` COPR Repo. 
 - [x] Change Pulse Audio parameters to get a better sound profile.
 - [x] Set ALSA default fallback for pulse.
-- [x] USB wakeup disabler. Useful especially for logitech devices.
 - [x] `powerline` prompt for bash. Looks cool!
 - [x] Set better `dnf` default options.
 - [x] Mask services for faster boot times.
 - [x] Much better settings for GNOME apps, rather than the default ones.
 - [x] Clean up some leftover messes.
-- [ ] Disable plymouth for faster boot.
+- [x] Disable plymouth for faster boot.
 
+- [ ] USB wakeup disabler. Useful especially for logitech devices. (Under work for automation. Needs to be manually enabled by commenting out `LONG_COMMENT1`.
+
+
+Show the list of USB devices to identify the one you want to enable or disable:
+```
+grep . /sys/bus/usb/devices/*/product
+```
+
+Check wake up status of all USB devices and delect the one which shows `enabled`:
+```
+grep . /sys/bus/usb/devices/*/power/wakeup
+```
+
+Some additional post-install tweaks .
+These are not part of the script, but can be applied post the install.
+
+Chrome flags for better browsing
+```
+enable-mark-http-as
+enable-lazy-image-loading
+shared-clipboard-receiver
+shared-clipboard-ui
+global-media-control
+native-filesystem-api
+ignore-gpu-blacklist
+enable-reader-mode
+enable-webrtc-hide-local-ips-with-mdns
+smooth-scrolling
+enable-quic
+focus-mode
+omnibox-tab-switch-suggestions
+enable-parallel-downloading
+```
+
+Firefox flags
+```
+gfx.webrender.all
+layers.acceleration.force-enabled
+```
+
+System upgrade for fedora
+```
+sudo dnf upgrade --refresh
+sudo dnf install dnf-plugin-system-upgrade
+sudo dnf system-upgrade download --refresh --releasever=XX --allowerasing --best
+sudo dnf system-upgrade reboot
+```
+
+Upgrade instructions
+```
+sudo dnf upgrade --refresh
+sudo dnf install dnf-plugin-system-upgrade
+sudo dnf upgrade --best --refresh --allowerasing
+sudo dnf distro-sync --best --refresh --allowerasing
+sudo dnf system-upgrade download --releasever=31 --best --refresh --allowerasing
+sudo dnf system-upgrade reboot
+After the reboot:
+sudo dnf distro-sync --best --refresh --allowerasing
+```
+
+Managing repos
+```
+sudo dnf config-manager --set-disabled <repository>
+sudo dnf config-manager --set-enabled <repository>
+```
