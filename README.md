@@ -1,12 +1,12 @@
 **Fedora 32 Workstation Setup Script**
 
-Special thanks to Tobias's script for some of the tweaks.
+Special thanks to Tobias's for some of the tweaks.
 
 This script will add essential and required features to a freshly installed Fedora 32 installation.
 
 Many of the functionalities will be added, but please take a look and modifty the parameters according to your requirements.
 
-
+<p>&nbsp;</p>
 
 Things implemented/needed to be done:
 
@@ -44,7 +44,7 @@ Check wake up status of all USB devices and delect the one which shows `enabled`
 grep . /sys/bus/usb/devices/*/power/wakeup
 ```
 
-
+<p>&nbsp;</p>
 
 Some additional post-install tweaks .
 These are not part of the script, but can be applied post the install.
