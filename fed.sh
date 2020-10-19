@@ -5,6 +5,7 @@ set -o pipefail
 ####
 ##	Fedora Workstation setup script.
 ##	Made by Sanket D (sanket.dm@outlook.com), for ASUS X556UR.
+##	Special thanks to Tobias for some of the tweaks included.
 ##	TO run: sh /path/to/fed.sh
 ####
 
@@ -149,6 +150,8 @@ EOF
 #### Check wake up status of all USB devices:
 ## grep . /sys/bus/usb/devices/*/power/wakeup
 
+<<LONG_COMMENT1
+
 #### Usb wakeup disabler (for usb 1-2)
 sudo tee -a /usr/bin/usb-wkp.sh > /dev/null <<EOF
 #!/bin/bash
@@ -170,6 +173,8 @@ EOF
 sudo chmod 644 /etc/systemd/system/usb-wkp.service
 sudo systemctl enable --now usb-wkp.service
 sudo systemctl start usb-wkp.service
+
+LONG_COMMENT1
 
 #### Powerline prompt for bash 
 sudo dnf in powerline -y
@@ -219,20 +224,9 @@ sudo systemctl mask NetworkManager-wait-online.service
 sudo systemctl mask dnf-makecache.timer
 
 #### Disable plymouth for faster boot
-#read -p "quiet" search
-#read -p " rd.plymouth=0 plymouth.enable=0 quiet " replace
-#if [[ $search != "" && $replace != "" ]]; then
-#sed -i "s/$search/$replace/gi" $1
-#fi
-#sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-#sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-
-## disable plymouth for faster boot
-#sudo nano /etc/default/grub
-#add kernel paramters: rd.plymouth=0 plymouth.enable=0
-#set grub-timeout=0
-#sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-#sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+sudo sed -i 's/quiet/quiet rd.plymouth=0 plymouth.enable=0/g' /etc/default/grub
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 
 #### Settings can be found out using "gsettings list-recursively | grep xxxxxx"
 
@@ -303,10 +297,11 @@ flatpak update -y
 flatpak uninstall --unused
 
 #### Reboot and apply all changes.
-echo "Script Completed. Please Reboot" && exit 0
+echo "Script Completed. Please Reboot. Enjoy your Fedora install :)" && exit 0
 
 
 #### Some additional post-install tweaks 
+#### These are not part of the script, but can be applied post the install
 
 #### Chrome flags for better browsing
 #enable-mark-http-as
