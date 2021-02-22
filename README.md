@@ -65,6 +65,9 @@ enable-quic
 focus-mode
 omnibox-tab-switch-suggestions
 enable-parallel-downloading
+mute-notifications-during-screen-share
+enable-tab-search
+ermission-chip
 ```
 
 Firefox flags
