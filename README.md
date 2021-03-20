@@ -1,4 +1,4 @@
-**Fedora 32 Workstation Setup Script**
+**Fedora 33 Workstation Setup Script**
 
 Special thanks to Tobias's for some of the tweaks.
 
