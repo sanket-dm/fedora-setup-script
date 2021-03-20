@@ -4,7 +4,7 @@ Special thanks to Tobias's for some of the tweaks.
 
 This script will add essential and required features to a freshly installed Fedora 32 installation.
 
-Many of the functionalities will be added, but please take a look and modifty the parameters according to your requirements.
+Many of the functionalities will be added, but please take a look and comment/uncomment statements according to your requirements.
 
 <p>&nbsp;</p>
 
@@ -13,8 +13,11 @@ Things implemented/needed to be done:
 - [x] Enabling RPMfusion repos.
 - [x] Enabling flatpak repos.
 - [x] Install some basic needed apps from flatpak and RPMfusion repos.
+- [x] Enable tainted repos and install propriatery drivers (if any).
 - [x] Remove some of the un-required apps (which slows the system down and are mostly unnecessary).
-- [x] Remove `gnome-software`. Trust me, it is one of the worst ways to install anything on the system.
+- [x] Install multimedia propriatery codecs.
+- [x] Enable firefox openh264 codec support. (using cisco copr repo).
+- [x] Remove `gnome-software`. Its quite laggy and unreliable.
 - [x] Download and install `google-chrome-stable` from the official website directly.
 - [x] Install MS Truetype fonts. 
 - [x] Some kernel/usability improvements.
