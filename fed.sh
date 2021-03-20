@@ -5,8 +5,8 @@ set -o pipefail
 ####
 ##	Fedora Workstation setup script.
 ##	Made by Sanket D (sanket.dm@outlook.com), for ASUS X556UR.
-##	Special thanks to Tobias for some of the tweaks included.
-##	TO run: sh /path/to/fed.sh
+##	Special thanks to Tobias and Chris Marts for some of the tweaks included.
+##	To run, type "sh /path/to/fed.sh" in terminal.
 ####
 
 #### Enable RPMfusion repos
@@ -20,6 +20,15 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 #### Update the system
 sudo dnf update -y --refresh
 
+#### Tainted Repos
+## Update the system first. This repo contains non free contains non FOSS software and hardware drivers.
+sudo dnf upgrade --refresh
+sudo dnf groupupdate core
+sudo dnf install -y rpmfusion-free-release-tainted
+sudo dnf install -y rpmfusion-nonfree-release-tainted 
+sudo dnf install -y dnf-plugins-core
+sudo dnf install -y *-firmware
+
 #### Install from flatpak
 flatpak install flathub com.spotify.Client -y -y
 flatpak install flathub com.sublimetext.three -y -y
@@ -30,21 +39,30 @@ sudo dnf install -y\
 	neofetch\
 	ffmpeg\
 	lm_sensors\
-	qbittorrent\
 	evolution\
 	drawing\
 	wine\
 	winetricks\
 	brasero\
 	gparted\
+	gimp\
 	obs-studio\
 	vlc\
 	x265\
 	intel-media-driver\
 	libva-intel-driver\
 	dnf-plugin-system-upgrade\
+	dnf-plugins-core\
 	android-tools\
+	unzip\
+	unrar\
+	p7zip\
+	p7zip-plugins\
+	gnome-tweak-tool\
 	
+#### If you use dropbox
+sudo dnf -y install dropbox nautilus-dropbox
+
 #### Remove unnecessary apps
 sudo dnf remove -y\
 	yelp\
@@ -58,6 +76,17 @@ sudo dnf remove -y\
 	gnome-photos\
 	abrt\
 	gnome-logs\
+	
+#### Install multimedia propriatery codecs
+sudo dnf install -y libdvdcss
+sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,ugly-\*,base} gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg
+sudo dnf install -y lame\* --exclude=lame-devel
+sudo dnf -y groupupdate sound-and-video
+
+#### Firefox openh264 support
+#sudo dnf config-manager --set-enabled fedora-cisco-openh264
+#sudo dnf install -y gstreamer1-plugin-openh264 mozilla-openh264
+#sudo dnf group upgrade --with-optional Multimedia
 
 #### Install google-chrome (direct method)
 sudo dnf in liberation-fonts -y
@@ -214,9 +243,10 @@ installonly_limit=3
 clean_requirements_on_remove=True
 best=False
 skip_if_unavailable=True
-fastestmirror=true
+fastestmirror=1
 deltarpm=true
-defaultyes=True
+defaultyes=true
+max_parallel_downloads=10
 EOF
 
 #### Disable services for faster boot
