@@ -104,3 +104,8 @@ Managing repos
 sudo dnf config-manager --set-disabled <repository>
 sudo dnf config-manager --set-enabled <repository>
 ```
+
+Enable hardware acceleration in GNOME-Web (Epiphany)
+```
+gsettings set org.gnome.Epiphany.web:/org/gnome/epiphany/web/ hardware-acceleration-policy 'always'
+```
