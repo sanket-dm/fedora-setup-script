@@ -2,7 +2,7 @@
 
 Special thanks to Tobias's for some of the tweaks.
 
-This script will add essential and required features to a freshly installed Fedora 32 installation.
+This script will add essential and required features to a freshly installed Fedora 33 installation.
 
 Many of the functionalities will be added, but please take a look and comment/uncomment statements according to your requirements.
 
